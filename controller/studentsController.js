@@ -16,6 +16,10 @@ const hasChosen = () => {
         display.printMessage("'Update student' not implemented yet.", true);
     } else if (userOption === "4") {
         display.printMessage("'Delete student' not implemented yet.", true);
+    } else if (userOption === "5") {
+        display.printMessage(`'Display the number of school classes' ${numOfSchoolClasses()}`, true);
+    } else if (userOption === "6") {
+        display.printMessage(`'Present the general average for each student' ${genAverageOfEachStudent()}`, true);
     } else if (userOption === "0") {
         return false;
     } else {
@@ -25,7 +29,8 @@ const hasChosen = () => {
 }
 
 const handleSubmenu = () => {
-    const optionsArray = ["Exit submenu", "List students", "Add a new student", "Update student", "Delete student"];
+    const optionsArray = ["Exit submenu", "List students", "Add a new student", "Update student", "Delete student",
+        "Display the number of school classes", "Present the general average for each student"];
     display.printMenu("Student Classes Submenu", optionsArray);
 }
 
@@ -39,6 +44,30 @@ const submenu = () => {
             display.printMessage(error, true);
         }
     }
+}
+
+//ID: 2 Display the number of school classes
+const numOfSchoolClasses = () => {
+    const data = dataManager.readData("data.json");
+    let classes = [];
+    data.forEach(item => {
+        classes.push(item.class);
+    })
+    let uniqueClasses = [...new Set(classes)];
+    // console.log(uniqueClasses);
+    // display.printData(students, "Students Table:");
+    display.printMessage(uniqueClasses.length);
+}
+numOfSchoolClasses();
+
+//ID: 4 Present the general average for each student
+const genAverageOfEachStudent = () => {
+    const data = dataManager.readData("data.json");
+    const subNum = [1, 2, 3, 4];
+    let subjectMark = `subject${subNum}Mark`;
+    data.forEach(item => {
+        console.log(item[0].subject2Mark);
+    })
 }
 
 module.exports = {submenu};
